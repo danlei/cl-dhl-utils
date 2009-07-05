@@ -1,0 +1,15 @@
+*~
+.*~
+\#*
+.\#*
+
+*.fasl
+*.fas
+*.x86f
+*fsl
+*.lib
+*.obj
+*.o
+*.stackdump
+*.exe
+
