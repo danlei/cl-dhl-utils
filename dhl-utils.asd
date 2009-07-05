@@ -2,7 +2,7 @@
 ;;;;;
 ;;;;; dhl-utils.asd
 ;;;;;
-;;;;; Time-stamp: <2009-07-04 20:47:27 danlei>
+;;;;; Time-stamp: <2009-07-05 16:43:24 danlei>
 ;;;;;
 
 
@@ -23,7 +23,6 @@
   :description "Miscellaneous CL utilities."
   :serial t
   :components ((:file "packages")
-	       (:file "debug")
 	       (:file "misc")
 	       (:file "anaphora")
 	       ))
