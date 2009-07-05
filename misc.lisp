@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; misc.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-07-04 21:33:51 danlei>
+;;;;; Time-stamp: <2009-07-05 16:46:30 danlei>
 ;;;;;
 
 
@@ -36,7 +36,7 @@
   "Calls FUNCTION with all elements of LIST1
 and LIST2 paired, then appends the results."
   (mappend (lambda (y)
-	     (mapcar (lambda (x) (funcall fn x y))
+	     (mapcar (lambda (x) (funcall function x y))
 		     list1))
 	   list2))
 
