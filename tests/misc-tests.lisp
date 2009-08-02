@@ -1,11 +1,11 @@
 ;;;;;
 ;;;;; misc-tests.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-07-04 20:45:32 danlei>
+;;;;; Time-stamp: <2009-07-05 01:49:53 danlei>
 ;;;;;
 
 
-(cl:in-package #:dhl-utils-test)
+(in-package #:dhl-utils-test)
 
 
 (defun do-tests ()
