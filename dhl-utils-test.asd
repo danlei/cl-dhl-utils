@@ -2,7 +2,7 @@
 ;;;;;
 ;;;;; dhl-utils-test.asd
 ;;;;;
-;;;;; Time-stamp: <2009-04-25 23:57:41>
+;;;;; Time-stamp: <2009-08-02 06:18:53 danlei>
 ;;;;;
 
 
@@ -21,12 +21,10 @@
   :author "Daniel H. Leidisch"
   :license "LLGPL"
   :description "Test suite for dhl-utils."
-  :depends-on (dhl-utils)
+  :depends-on (dhl-utils lisp-unit)
   :components ((:module tests
 			:serial t
-			:components ((:file "packages")
-				     (:file "cl-unit")
-				     (:file "misc-tests")
+			:components ((:file "misc-tests")
 				     ))))
 
 (defmethod perform ((o test-op) (c (eql (find-system 'dhl-utils-test))))
