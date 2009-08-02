@@ -2,7 +2,7 @@
 ;;;;;
 ;;;;; dhl-utils.asd
 ;;;;;
-;;;;; Time-stamp: <2009-07-05 16:43:24 danlei>
+;;;;; Time-stamp: <2009-08-02 21:21:48 danlei>
 ;;;;;
 
 
@@ -25,6 +25,7 @@
   :components ((:file "packages")
 	       (:file "misc")
 	       (:file "anaphora")
+               (:file "clos")
 	       ))
 
 (defmethod perform ((o load-op) (c (eql (find-system 'dhl-utils))))
