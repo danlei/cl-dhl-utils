@@ -2,7 +2,7 @@
 ;;;;;
 ;;;;; dhl-utils.asd
 ;;;;;
-;;;;; Time-stamp: <2009-08-02 21:21:48 danlei>
+;;;;; Time-stamp: <2009-08-02 21:32:36 danlei>
 ;;;;;
 
 
@@ -23,9 +23,10 @@
   :description "Miscellaneous CL utilities."
   :serial t
   :components ((:file "packages")
-	       (:file "misc")
+               (:file "sequences")
 	       (:file "anaphora")
                (:file "clos")
+               (:file "misc")
 	       ))
 
 (defmethod perform ((o load-op) (c (eql (find-system 'dhl-utils))))
