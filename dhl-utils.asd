@@ -2,7 +2,7 @@
 ;;;;;
 ;;;;; dhl-utils.asd
 ;;;;;
-;;;;; Time-stamp: <2009-08-02 21:32:36 danlei>
+;;;;; Time-stamp: <2009-08-02 21:49:57 danlei>
 ;;;;;
 
 
@@ -26,6 +26,7 @@
                (:file "sequences")
 	       (:file "anaphora")
                (:file "clos")
+               (:file "memoization")
                (:file "misc")
 	       ))
 

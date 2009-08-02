@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; packages.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-07-04 20:44:17 danlei>
+;;;;; Time-stamp: <2009-08-02 21:50:27 danlei>
 ;;;;;
 
 
@@ -46,4 +46,7 @@
 	   #:class-superclasses
 	   #:specializer-methods
 	   #:defsclass
+           #:memoize-function
+           #:memoize
+           #:unmemoize
 	   ))
