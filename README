@@ -1,4 +1,4 @@
-Time-stamp: <2009-07-04 21:45:27 danlei>
+Time-stamp: <2009-08-02 07:10:07 danlei>
 
 In order to use this system, a symbolic link to dhl-utils.asd must be
 created under a directory included in asdf:*central-registry*. Then,
@@ -6,8 +6,9 @@ the system can be loaded:
 
 CL-USER> (asdf:oos 'asdf:load-op 'dhl-utils)
 
-For running the tests, dhl-utils-test.asd must be symlinked, too.
-Then, the tests can be run:
+For running the tests, dhl-utils-test.asd must be symlinked, too. Note
+that lisp-unit (repo.or.cz/w/lisp-unit.git) is a required dependency
+for this functionality. Then, the tests can be run:
 
 CL-USER> (asdf:oos 'asdf:test-op 'dhl-utils)
 
