@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; memoization.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-08-02 21:53:03 danlei>
+;;;;; Time-stamp: <2009-08-02 22:10:55 danlei>
 ;;;;;
 
 
@@ -28,5 +28,7 @@
 
 (defmacro unmemoize (function-name)
   "Restores FUNCTION-NAMEs original, non-memoized version."
-  `(setf (symbol-function ',function-name)
-         (get ',function-name 'original-fdefinition)))
+  `(progn
+     (setf (symbol-function ',function-name)
+           (get ',function-name 'original-fdefinition))
+     (remprop ',function-name 'original-fdefinition)))
