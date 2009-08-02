@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; misc.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-08-02 21:20:40 danlei>
+;;;;; Time-stamp: <2009-08-02 21:24:42 danlei>
 ;;;;;
 
 
@@ -140,13 +140,3 @@ the latter is signaled during the execution of BODY."
     (compare 'name      (function pathname-name))
     (compare 'type      (function pathname-type))
     (compare 'version   (function pathname-version))))
-
-#+closer-mop
-(defun class-superclasses (class)
-  "Returns a list of all supperclasses of CLASS."
-  (let ((direct-superclasses (closer-mop:class-direct-superclasses class)))
-    (if (endp direct-superclasses)
-	nil
-	(append direct-superclasses
-		(mappend #'class-superclasses
-			 direct-superclasses)))))

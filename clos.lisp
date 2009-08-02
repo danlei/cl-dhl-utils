@@ -1,12 +1,22 @@
 ;;;;;
 ;;;;; clos.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-08-02 21:21:27 danlei>
+;;;;; Time-stamp: <2009-08-02 21:24:55 danlei>
 ;;;;;
 
 
 (in-package #:dhl-utils)
 
+
+#+closer-mop
+(defun class-superclasses (class)
+  "Returns a list of all supperclasses of CLASS."
+  (let ((direct-superclasses (closer-mop:class-direct-superclasses class)))
+    (if (endp direct-superclasses)
+	nil
+	(append direct-superclasses
+		(mappend #'class-superclasses
+			 direct-superclasses)))))
 
 #-closer-mop
 (progn
