@@ -2,7 +2,7 @@
 ;;;;;
 ;;;;; dhl-utils-test.asd
 ;;;;;
-;;;;; Time-stamp: <2009-08-02 06:18:53 danlei>
+;;;;; Time-stamp: <2009-08-02 06:50:34 danlei>
 ;;;;;
 
 
@@ -24,7 +24,8 @@
   :depends-on (dhl-utils lisp-unit)
   :components ((:module tests
 			:serial t
-			:components ((:file "misc-tests")
+			:components ((:file "packages")
+                                     (:file "misc-tests")
 				     ))))
 
 (defmethod perform ((o test-op) (c (eql (find-system 'dhl-utils-test))))
