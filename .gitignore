@@ -3,8 +3,7 @@
 \#*
 .\#*
 
-*.fasl
-*.fas
+*.*fas*
 *.x86f
 *fsl
 *.lib
@@ -12,4 +11,3 @@
 *.o
 *.stackdump
 *.exe
-
