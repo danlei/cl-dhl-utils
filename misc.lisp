@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; misc.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-08-02 21:29:12 danlei>
+;;;;; Time-stamp: <2009-08-05 19:05:24 danlei>
 ;;;;;
 
 
@@ -37,10 +37,14 @@
   `(handler-bind ((,condition #'muffle-warning))
      ,@body))
 
-(defmacro straight-ahead ((&optional (condition 'condition)) &body body)
+(defmacro straight-ahead ((&optional (condition 'condition)
+                                     (restart 'continue))
+                          &body body)
   "Tries to invoke CONTINUE restarts for CONDITION, if
 the latter is signaled during the execution of BODY."
-  `(handler-bind ((,condition #'continue))
+  `(handler-bind ((,condition (lambda (c)
+                                (declare (ignore c))
+                                (invoke-restart ',restart))))
      ,@body))
 
 (defun print-pathname (pathname)
