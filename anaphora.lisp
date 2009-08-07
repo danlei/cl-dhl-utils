@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; anaphora.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-08-07 22:26:41 danlei>
+;;;;; Time-stamp: <2009-08-07 22:29:35 danlei>
 ;;;;;
 ;;;;; Anaphoric macros in the style of Paul Graham's "On Lisp" (ch. 14).
 ;;;;;
@@ -36,7 +36,7 @@ which is bound to IT, is true. GATHER may be called
 within BODY to collect values in a list, which is
 finally returned."
   (let ((result (gensym "RESULT-")))
-    `(let ((,result (list)))
+    `(let (,result)
        (flet ((gather (item)
 		(push item ,result)))
 	 (do ((it ,expression ,expression))
@@ -81,7 +81,7 @@ which is bound to VAR, is true. GATHER may be called
 within BODY to collect values in a list, which is
 finally returned."
   (let ((result (gensym "RESULT-")))
-    `(let ((,result (list)))
+    `(let (,result)
        (flet ((gather (item)
 		(push item ,result)))
        (do ((,var ,expression ,expression))
