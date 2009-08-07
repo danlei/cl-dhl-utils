@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; anaphora.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-07-04 20:37:43 danlei>
+;;;;; Time-stamp: <2009-08-07 22:26:41 danlei>
 ;;;;;
 ;;;;; Anaphoric macros in the style of Paul Graham's "On Lisp" (ch. 14).
 ;;;;;
@@ -40,7 +40,7 @@ finally returned."
        (flet ((gather (item)
 		(push item ,result)))
 	 (do ((it ,expression ,expression))
-	     ((not it) ,result)
+	     ((not it) (nreverse ,result))
 	   ,@body)))))
 
 (defmacro aand (&rest args)
@@ -85,7 +85,7 @@ finally returned."
        (flet ((gather (item)
 		(push item ,result)))
        (do ((,var ,expression ,expression))
-	   ((not ,var) ,result)
+	   ((not ,var) (nreverse ,result))
 	 ,@body)))))
 
 (defmacro band ((var) &rest args)
