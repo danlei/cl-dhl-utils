@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; sequences.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-08-15 15:47:49 danlei>
+;;;;; Time-stamp: <2009-08-15 16:05:54 danlei>
 ;;;;;
 
 
@@ -67,13 +67,24 @@ according to the keyword-arguments, which mirror FIND."
 		       (car tree)
 		       (rec (cdr tree) acc))))))
     (rec tree nil)))
-    
+
+#+nil    
 (defun permute (list)
   "Returns a permutation of LIST."
   (if (endp list)
       nil
       (let ((item (random-elt list)))
 	(cons item (permute (remove item list :count 1))))))
+
+(defun permute (list)
+  "Returns a permutation of LIST."
+  (labels ((rec (list acc)
+             (if (endp list)
+                 acc
+                 (let ((item (random-elt list)))
+                   (rec (remove item list :count 1)
+                        (cons item acc))))))
+    (rec list nil)))
 
 (defun print-list-as-sentence (list)
   "Prints LIST as an english sentence, with the first
