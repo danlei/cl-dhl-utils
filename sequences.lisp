@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; sequences.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-08-02 21:31:25 danlei>
+;;;;; Time-stamp: <2009-08-15 15:47:49 danlei>
 ;;;;;
 
 
@@ -45,7 +45,7 @@ and LIST2 paired, then appends the results."
 (defun find-all (item sequence &rest keyword-args
 		 &key (test #'eql) test-not &allow-other-keys)
   "Finds all elements of SEQUENCE that match ITEM,
-according to the keywords."
+according to the keyword-arguments, which mirror FIND."
   (if test-not
       (apply #'remove item sequence
 	     :test-not (complement test-not) keyword-args)
