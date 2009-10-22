@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; anaphora.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-08-07 22:29:35 danlei>
+;;;;; Time-stamp: <2009-08-07 22:42:28 danlei>
 ;;;;;
 ;;;;; Anaphoric macros in the style of Paul Graham's "On Lisp" (ch. 14).
 ;;;;;

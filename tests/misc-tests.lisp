@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; misc-tests.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-07-05 01:49:53 danlei>
+;;;;; Time-stamp: <2009-10-22 16:37:45 danlei>
 ;;;;;
 
 
@@ -230,4 +230,13 @@
 			 (cerror "" 'error)))
   (assert-error 'error (straight-ahead ()
 			 (error 'error)))
+  )
+
+(define-test deflex
+  (assert-equal '(1 2)
+                (progn
+                  (deflex x 2)
+                  (list (let ((x 1))
+                          ((lambda () x)))
+                        x)))
   )

@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; misc.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-08-05 19:05:24 danlei>
+;;;;; Time-stamp: <2009-10-22 16:26:43 danlei>
 ;;;;;
 
 
@@ -70,3 +70,12 @@ the latter is signaled during the execution of BODY."
     (compare 'name      (function pathname-name))
     (compare 'type      (function pathname-type))
     (compare 'version   (function pathname-version))))
+
+(defmacro deflex (var value &optional docstring)
+  "Establishes a toplevel lexical variable named VAR,
+assigns VALUE to it, and attaches DOCSTRING."
+  `(progn
+     (define-symbol-macro ,var (get ',var 'lexical-value))
+     (setf ,var ,value)
+     (setf (get ',var 'lexical-documentation) ',docstring)
+     ',var))

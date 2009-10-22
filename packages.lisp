@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; packages.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-08-02 21:50:27 danlei>
+;;;;; Time-stamp: <2009-10-22 16:30:01 danlei>
 ;;;;;
 
 
@@ -26,6 +26,7 @@
 	   #:print-list-as-sentence
 	   #:ignore-warnings
 	   #:straight-ahead
+           #:deflex
   	   #:it
 	   #:self
 	   #:gather
