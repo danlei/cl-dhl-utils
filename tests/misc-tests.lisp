@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; misc-tests.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-10-22 16:37:45 danlei>
+;;;;; Time-stamp: <2009-10-26 00:31:22 danlei>
 ;;;;;
 
 
@@ -236,6 +236,13 @@
   (assert-equal '(1 2)
                 (progn
                   (deflex x 2)
+                  (list (let ((x 1))
+                          ((lambda () x)))
+                        x)))
+  (assert-equal '(1 2)
+                (progn
+                  (deflex x)
+                  (setq x 2)
                   (list (let ((x 1))
                           ((lambda () x)))
                         x)))
