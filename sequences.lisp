@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; sequences.lisp
 ;;;;;
-;;;;; Time-stamp: <2010-02-20 22:04:58 danlei>
+;;;;; Time-stamp: <2010-02-20 22:19:24 danlei>
 ;;;;;
 
 
@@ -78,11 +78,12 @@ according to the keyword-arguments, which mirror FIND."
                         (cons item acc))))))
     (rec list nil)))
 
-(defun permutations (set)
-  "Returns all permutations of SET."
-  (loop for element in set
-        when (null (cdr set)) do (return (list set))
-        append (loop for permutation in (permutations (remove element set))
+(defun permutations (list)
+  "Returns all permutations of LIST."
+  (loop for element in list
+        when (null (cdr list)) do (return (list list))
+        append (loop for permutation in
+                     (permutations (remove element list :count 1))
                      collect (cons element permutation))))
 
 (defun print-list-as-sentence (list &key (stream t))
