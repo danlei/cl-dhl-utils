@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; misc-tests.lisp
 ;;;;;
-;;;;; Time-stamp: <2010-02-11 23:01:32 danlei>
+;;;;; Time-stamp: <2010-02-20 22:15:36 danlei>
 ;;;;;
 
 
@@ -107,7 +107,7 @@
   (assert-equal '() (permutations '()))
   (assert-equal '((1)) (permutations '(1)))
   (assert-equal '((1 2) (2 1)) (permutations '(1 2)))
-  (assert-equal 12 (length (permutations '(1 2 3 4))))
+  (assert-equal 24 (length (permutations '(1 2 3 4))))
   (assert-error 'error (permutations))
   (assert-error 'error (permutations t)))
 
