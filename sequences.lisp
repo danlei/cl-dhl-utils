@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; sequences.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-08-15 16:05:54 danlei>
+;;;;; Time-stamp: <2010-02-20 22:04:58 danlei>
 ;;;;;
 
 
@@ -68,14 +68,6 @@ according to the keyword-arguments, which mirror FIND."
 		       (rec (cdr tree) acc))))))
     (rec tree nil)))
 
-#+nil    
-(defun permute (list)
-  "Returns a permutation of LIST."
-  (if (endp list)
-      nil
-      (let ((item (random-elt list)))
-	(cons item (permute (remove item list :count 1))))))
-
 (defun permute (list)
   "Returns a permutation of LIST."
   (labels ((rec (list acc)
@@ -86,9 +78,14 @@ according to the keyword-arguments, which mirror FIND."
                         (cons item acc))))))
     (rec list nil)))
 
-(defun print-list-as-sentence (list)
+(defun permutations (set)
+  "Returns all permutations of SET."
+  (loop for element in set
+        when (null (cdr set)) do (return (list set))
+        append (loop for permutation in (permutations (remove element set))
+                     collect (cons element permutation))))
+
+(defun print-list-as-sentence (list &key (stream t))
   "Prints LIST as an english sentence, with the first
 word capitalized, and a dot at the end."
-  (check-type list list)
-  (format t "~@[~@(~{~a~^ ~}~).~]" list)
-  "")
+  (format stream "~@[~@(~{~a~^ ~}~).~]" list))
