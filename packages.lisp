@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; packages.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-10-22 16:30:01 danlei>
+;;;;; Time-stamp: <2010-02-11 22:41:31 danlei>
 ;;;;;
 
 
@@ -23,6 +23,7 @@
 	   #:once-only
 	   #:flatten
 	   #:permute
+           #:permutations
 	   #:print-list-as-sentence
 	   #:ignore-warnings
 	   #:straight-ahead
