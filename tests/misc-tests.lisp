@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; misc-tests.lisp
 ;;;;;
-;;;;; Time-stamp: <2010-02-20 22:23:51 danlei>
+;;;;; Time-stamp: <2010-02-20 23:53:34 danlei>
 ;;;;;
 
 
@@ -73,6 +73,8 @@
 (define-test random-elt
   (assert-equal '() (random-elt '()))
   (assert-equal 'a (random-elt '(a)))
+  (assert-equal 'a (random-elt '(a a a)))
+  (assert-true (member (random-elt '(a b c)) '(a b c)))
   (assert-error 'error (random-elt t))
   (assert-error 'error (random-elt)))
 
@@ -89,6 +91,14 @@
 		    a)
 		  (with-gensyms (a b) a)))
 
+(define-test once-only
+  (assert-equal '(2 2)
+                (let ((x 1))
+                  (macrolet ((foo (form)
+                               (once-only (form)
+                                 `(list ,form ,form))))
+                    (foo (incf x))))))
+
 (define-test flatten
   (assert-equal '() (flatten '()))
   (assert-equal '(a a a a) (flatten '((a) (a) (a) (a))))
@@ -100,6 +110,7 @@
   (assert-equal '() (permute '()))
   (assert-equal 4 (length (permute '(1 2 3 4))))
   (assert-equal '(a a a) (permute '(a a a)))
+  (assert-true (member (permute '(a b)) '((a b) (b a)) :test #'equal))
   (assert-error 'error (permute))
   (assert-error 'error (permute t)))
 
@@ -168,6 +179,45 @@
   (assert-equal 1 (alet 1 it))
   (assert-equal 4 (alet 2 (* 2 it))))
 
+(define-test awhile
+  (assert-false (awhile nil))
+  (assert-false (awhile nil it))
+  (assert-equal "FUBAR"
+                (with-output-to-string (out)
+                  (with-input-from-string (in "fubar")
+                    (awhile (read-char in nil nil) 
+                      (write-char (char-upcase it) out)))))
+  (assert-equal '(2 3 4)
+                (let ((list (list 1 2 3)))
+                  (awhile (pop list)
+                    (gather (1+ it))))))
+
+(define-test aand
+  (assert-true (aand))
+  (assert-false (aand nil))
+  (assert-false (aand t nil it))
+  (assert-false (aand nil t it))
+  (assert-true (aand t it))
+  (assert-false (aand nil it))
+  (assert-equal 2 (aand 1 (1+ it)))
+  (assert-equal 5 (aand 3 (1+ it) (1+ it)))
+  (assert-prints "" (aand nil (print 'foo)))
+  (assert-prints "FOO" (aand t (print 'foo))))
+
+(define-test alambda
+  (assert-true (typep (alambda ()) 'function))
+  (assert-equal 55 (funcall (alambda (x) (if (> x 0)
+                                             (+ x (self (1- x)))
+                                             0)) 10)))
+
+(define-test acond
+  (assert-true (acond ((< 1 2) it)))
+  (assert-false (acond))
+  (assert-equal :bar (acond ((= 1 0) :foo)
+                            ((= 1 1) :bar)
+                            (t :baz)))
+  (assert-equal :foo (acond ((identity :foo) it))))
+
 (define-test bwhen
   (assert-false (bwhen (it t)))
   (assert-false (bwhen (it nil)))
@@ -184,6 +234,31 @@
   (assert-equal 1 (bif (it 1) it))
   (assert-equal 5 (bif (it nil) nil 5))
   (assert-equal 10 (bif (it 5) (* 2 it))))
+
+(define-test bwhile
+  (assert-false (bwhile (it nil)))
+  (assert-false (bwhile (it nil) it))
+  (assert-equal "FUBAR"
+                (with-output-to-string (out)
+                  (with-input-from-string (in "fubar")
+                    (bwhile (it (read-char in nil nil)) 
+                      (write-char (char-upcase it) out)))))
+  (assert-equal '(2 3 4)
+                (let ((list (list 1 2 3)))
+                  (bwhile (it (pop list))
+                    (gather (1+ it))))))
+
+(define-test band
+  (assert-true (band (it)))
+  (assert-false (band (it) nil))
+  (assert-false (band (it) t nil it))
+  (assert-false (band  (it) nil t it))
+  (assert-true (band (it) t it))
+  (assert-false (band (it) nil it))
+  (assert-equal 2 (band (it) 1 (1+ it)))
+  (assert-equal 5 (band (it) 3 (1+ it) (1+ it)))
+  (assert-prints "" (band (it) nil (print 'foo)))
+  (assert-prints "FOO" (band (it) t (print 'foo))))
 
 #+nil
 (define-test compare-pathnames
@@ -234,3 +309,7 @@
                   (list (let ((x 1))
                           ((lambda () x)))
                         x))))
+
+(define-test memoize-function
+  (assert-true (typep (memoize-function #'+) 'function))
+  (assert-equal 3 (funcall (memoize-function #'+) 1 2)))
