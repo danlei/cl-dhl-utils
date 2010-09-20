@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; anaphora.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-08-07 22:42:28 danlei>
+;;;;; Time-stamp: <2010-09-20 12:19:16 danlei>
 ;;;;;
 ;;;;; Anaphoric macros in the style of Paul Graham's "On Lisp" (ch. 14).
 ;;;;;
@@ -38,16 +38,16 @@ finally returned."
   (let ((result (gensym "RESULT-")))
     `(let (,result)
        (flet ((gather (item)
-		(push item ,result)))
-	 (do ((it ,expression ,expression))
-	     ((not it) (nreverse ,result))
-	   ,@body)))))
+                (push item ,result)))
+         (do ((it ,expression ,expression))
+             ((not it) (nreverse ,result))
+           ,@body)))))
 
 (defmacro aand (&rest args)
   "Anaphoric AND: IT is implicitly bound to the preceding argument."
   (cond ((null args) t)
-	((null (cdr args)) (car args))
-	(t `(awhen ,(car args) (aand ,@(cdr args))))))
+        ((null (cdr args)) (car args))
+        (t `(awhen ,(car args) (aand ,@(cdr args))))))
 
 (defmacro alambda (parameters &body body)
   "Anaphoric LAMBDA: Binds SELF implicitly to itself."
@@ -59,10 +59,10 @@ finally returned."
   (if (null clauses)
       nil
       (let ((clause (car clauses)))
-	`(let ((it ,(car clause)))
-	   (if it
-	       (progn ,@(cdr clause))
-	       (acond ,@(cdr clauses)))))))
+        `(let ((it ,(car clause)))
+           (if it
+               (progn ,@(cdr clause))
+               (acond ,@(cdr clauses)))))))
 
 (defmacro bwhen ((var expression) &body body)
   "Binding WHEN: Binds VAR to EXPRESSION."
@@ -83,13 +83,13 @@ finally returned."
   (let ((result (gensym "RESULT-")))
     `(let (,result)
        (flet ((gather (item)
-		(push item ,result)))
-       (do ((,var ,expression ,expression))
-	   ((not ,var) (nreverse ,result))
-	 ,@body)))))
+                (push item ,result)))
+         (do ((,var ,expression ,expression))
+             ((not ,var) (nreverse ,result))
+           ,@body)))))
 
 (defmacro band ((var) &rest args)
   "Binding AND: VAR is implicitly bound to the preceding argument."
   (cond ((null args) t)
-	((null (cdr args)) (car args))
-	(t `(bif (,var ,(car args)) (band (,var) ,@(cdr args))))))
+        ((null (cdr args)) (car args))
+        (t `(bif (,var ,(car args)) (band (,var) ,@(cdr args))))))

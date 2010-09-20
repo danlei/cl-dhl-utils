@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; misc-tests.lisp
 ;;;;;
-;;;;; Time-stamp: <2010-02-20 23:53:34 danlei>
+;;;;; Time-stamp: <2010-09-20 12:32:08 danlei>
 ;;;;;
 
 
@@ -14,17 +14,17 @@
 
 (define-test mappend
   (assert-equal '(1 3 5)
-		(mappend (lambda (x)
-			   (list (car x)))
-			 '((1 2) (3 4) (5 6))))
+                (mappend (lambda (x)
+                           (list (car x)))
+                         '((1 2) (3 4) (5 6))))
   (assert-equal '((1 2 3) (3 2 1) (a b c) (c b a))
-		(mappend (lambda (list)
-			   (list list (reverse list)))
-			 '((1 2 3) (a b c))))
+                (mappend (lambda (list)
+                           (list list (reverse list)))
+                         '((1 2 3) (a b c))))
   (assert-equal '(1 2 3 4 5 6 7 8)
-		(mappend #'append '((1 2) (5 6)) '((3 4) (7 8))))
+                (mappend #'append '((1 2) (5 6)) '((3 4) (7 8))))
   (assert-equal '((1 2) (3 4) (5 6) (7 8))
-		(mappend #'list '((1 2) (5 6)) '((3 4) (7 8))))
+                (mappend #'list '((1 2) (5 6)) '((3 4) (7 8))))
   (assert-error 'error (mappend))
   (assert-error 'error (mappend t))
   (assert-error 'error (mappend t t)))
@@ -56,15 +56,16 @@
 (define-test cross-product
   (assert-equal () (cross-product #'* '() '()))
   (assert-equal '((1 a) (2 a) (1 b) (2 b))
-		(cross-product #'list '(1 2) '(a b)))
+                (cross-product #'list '(1 2) '(a b)))
   (assert-error 'error (cross-product))
   (assert-error 'error (cross-product t t t)))
 
 (define-test find-all
   (assert-equal '() (find-all 'a '(b c d e)))
-  (assert-equal '((a b) (a 4)) (find-all 'a
-					 '((a b) (d 2) (d 3) (a 4) (z 9))
-					 :test (lambda (x y) (eq x (car y)))))
+  (assert-equal '((a b) (a 4))
+                (find-all 'a
+                          '((a b) (d 2) (d 3) (a 4) (z 9))
+                          :test (lambda (x y) (eq x (car y)))))
   (assert-equal '(b c d) (find-all 'a '(a b a c d a) :test-not #'eq))
   (assert-error 'error (find-all))
   (assert-error 'error (find-all t))
@@ -80,16 +81,16 @@
 
 (define-test with-gensyms
   (assert-expands '(let ())
-		  (with-gensyms ()))
+                  (with-gensyms ()))
   (assert-expands '(let ((a (gensym))))
-		  (with-gensyms (a)))
+                  (with-gensyms (a)))
   (assert-expands '(let ((a (gensym))
-			 (b (gensym))))
-		  (with-gensyms (a b)))
+                         (b (gensym))))
+                  (with-gensyms (a b)))
   (assert-expands '(let ((a (gensym))
-			 (b (gensym)))
-		    a)
-		  (with-gensyms (a b) a)))
+                         (b (gensym)))
+                    a)
+                  (with-gensyms (a b) a)))
 
 (define-test once-only
   (assert-equal '(2 2)
@@ -128,7 +129,7 @@
   (assert-prints "" (print-list-as-sentence '()))
   (assert-prints "The." (print-list-as-sentence '(the)))
   (assert-prints "The quick brown fox." (print-list-as-sentence
-					 '(the quick brown fox)))
+                                         '(the quick brown fox)))
   (assert-error 'error (print-list-as-sentence))
   (assert-error 'error (print-list-as-sentence t)))
 
@@ -164,14 +165,14 @@
 
 (define-test asetf
   (assert-true (let ((x t))
-		 (asetf x it)
-		 x))
+                 (asetf x it)
+                 x))
   (assert-equal 2 (let ((x 1))
-		    (asetf x (* 2 it))
-		    x))
+                    (asetf x (* 2 it))
+                    x))
   (assert-equal 4 (let ((v (vector 2)))
-		    (asetf (aref v 0) (* 2 it))
-		    (aref v 0))))
+                    (asetf (aref v 0) (* 2 it))
+                    (aref v 0))))
 
 (define-test alet
   (assert-true (alet t it))
@@ -264,36 +265,36 @@
 (define-test compare-pathnames
   #+(or unix linux)
   (assert-prints "" (compare-pathnames
-		     #p"/home/danlei/test.lisp"
-		     (make-pathname :directory '(:absolute "home" "danlei")
-				    :name "test"
-				    :type "lisp"
-				    :version :newest)))
+                     #p"/home/danlei/test.lisp"
+                     (make-pathname :directory '(:absolute "home" "danlei")
+                                    :name "test"
+                                    :type "lisp"
+                                    :version :newest)))
   #+(or unix linux)
   (assert-prints "" (compare-pathnames
-		     #p"code/README"
-		     (make-pathname :directory '(:relative "code")
-				    :name "README"
-				    :version :newest)))
+                     #p"code/README"
+                     (make-pathname :directory '(:relative "code")
+                                    :name "README"
+                                    :version :newest)))
   (assert-prints "" (compare-pathnames #p"/home/danlei/test.lisp"
-				       #p"/home/danlei/test.lisp"))
+                                       #p"/home/danlei/test.lisp"))
   (assert-error 'error (compare-pathnames #p"x")))
 
 (define-test ignore-warnings
   (assert-prints "" (ignore-warnings ()
-		      (warn 'warning)))
+                      (warn 'warning)))
   (assert-error 'error (ignore-warnings ()
-			 (error 'error))))
+                         (error 'error))))
 
 (define-test straight-ahead
   (assert-true (straight-ahead ()
-		 (progn
-		   (cerror "" 'error)
-		   t)))
+                 (progn
+                   (cerror "" 'error)
+                   t)))
   (assert-error 'error (straight-ahead (warning)
-			 (cerror "" 'error)))
+                         (cerror "" 'error)))
   (assert-error 'error (straight-ahead ()
-			 (error 'error))))
+                         (error 'error))))
 
 (define-test deflex
   (assert-equal '(1 2)

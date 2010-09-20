@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; clos.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-08-02 21:24:55 danlei>
+;;;;; Time-stamp: <2010-09-20 12:20:24 danlei>
 ;;;;;
 
 
@@ -13,10 +13,10 @@
   "Returns a list of all supperclasses of CLASS."
   (let ((direct-superclasses (closer-mop:class-direct-superclasses class)))
     (if (endp direct-superclasses)
-	nil
-	(append direct-superclasses
-		(mappend #'class-superclasses
-			 direct-superclasses)))))
+        nil
+        (append direct-superclasses
+                (mappend #'class-superclasses
+                         direct-superclasses)))))
 
 #-closer-mop
 (progn
@@ -30,7 +30,7 @@
   "Returns a list of all methods that specialize
 on SPECIALIZER or one of its superclasses."
   (mappend #'closer-mop:specializer-direct-methods
-	   (cons specializer (class-superclasses specializer))))
+           (cons specializer (class-superclasses specializer))))
 
 #-closer-mop
 (progn
@@ -42,7 +42,7 @@ on SPECIALIZER or one of its superclasses."
 (defun generate-slot-options (slot)
   "Returns a list of slot-options for SLOT."
   `(,slot :accessor ,slot
-	  :initarg ,(intern (symbol-name slot) 'keyword)))
+          :initarg ,(intern (symbol-name slot) 'keyword)))
 
 (defmacro defsclass (name super-classes &rest slots)
   "Defines a class named NAME inheriting from SUPER-CLASSES,
@@ -51,7 +51,7 @@ same name as the according slot), and creates a constructor
 funtion named MAKE-NAME."
   `(progn
      (setf (symbol-function ',(intern (concatenate 'string "MAKE-"
-						   (symbol-name name))))
-	   (lambda (&rest args) (apply #'make-instance ',name args)))
+                                                   (symbol-name name))))
+           (lambda (&rest args) (apply #'make-instance ',name args)))
      (defclass ,name ,super-classes
        ,(mapcar #'generate-slot-options slots))))

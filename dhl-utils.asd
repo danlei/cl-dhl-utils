@@ -2,15 +2,15 @@
 ;;;;;
 ;;;;; dhl-utils.asd
 ;;;;;
-;;;;; Time-stamp: <2009-08-02 21:49:57 danlei>
+;;;;; Time-stamp: <2010-09-20 12:15:23 danlei>
 ;;;;;
 
 
 (in-package #:common-lisp-user)
 
 (defpackage #:dhl-utils-system
-  (:use #:common-lisp
-	#:asdf))
+    (:use #:common-lisp
+          #:asdf))
 
 (in-package #:dhl-utils-system)
 
@@ -24,11 +24,11 @@
   :serial t
   :components ((:file "packages")
                (:file "sequences")
-	       (:file "anaphora")
+               (:file "anaphora")
                (:file "clos")
                (:file "memoization")
                (:file "misc")
-	       ))
+               ))
 
 (defmethod perform ((o load-op) (c (eql (find-system 'dhl-utils))))
   (pushnew :dhl-utils *features*))

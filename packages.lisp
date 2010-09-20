@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; packages.lisp
 ;;;;;
-;;;;; Time-stamp: <2010-02-11 22:41:31 danlei>
+;;;;; Time-stamp: <2010-09-20 12:14:11 danlei>
 ;;;;;
 
 
@@ -12,43 +12,43 @@
   (:nicknames #:dhlu)
   (:use :common-lisp)
   (:export #:mappend
-	   #:count-atoms
-	   #:count-everywhere
-	   #:dot-product
-	   #:cross-product
-	   #:find-all-if
-	   #:find-all
-	   #:random-elt
-	   #:with-gensyms
-	   #:once-only
-	   #:flatten
-	   #:permute
+           #:count-atoms
+           #:count-everywhere
+           #:dot-product
+           #:cross-product
+           #:find-all-if
+           #:find-all
+           #:random-elt
+           #:with-gensyms
+           #:once-only
+           #:flatten
+           #:permute
            #:permutations
-	   #:print-list-as-sentence
-	   #:ignore-warnings
-	   #:straight-ahead
+           #:print-list-as-sentence
+           #:ignore-warnings
+           #:straight-ahead
            #:deflex
-  	   #:it
-	   #:self
-	   #:gather
-	   #:awhen
-	   #:aif
-	   #:asetf
-	   #:alet
-	   #:awhile
-	   #:aand
-	   #:alambda
-	   #:acond
-	   #:bwhen
-	   #:bif
-	   #:bwhile
-	   #:band
-	   #:print-pathname
-	   #:compare-pathnames
-	   #:class-superclasses
-	   #:specializer-methods
-	   #:defsclass
+           #:it
+           #:self
+           #:gather
+           #:awhen
+           #:aif
+           #:asetf
+           #:alet
+           #:awhile
+           #:aand
+           #:alambda
+           #:acond
+           #:bwhen
+           #:bif
+           #:bwhile
+           #:band
+           #:print-pathname
+           #:compare-pathnames
+           #:class-superclasses
+           #:specializer-methods
+           #:defsclass
            #:memoize-function
            #:memoize
            #:unmemoize
-	   ))
+           ))

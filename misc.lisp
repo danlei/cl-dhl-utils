@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; misc.lisp
 ;;;;;
-;;;;; Time-stamp: <2009-10-26 00:29:45 danlei>
+;;;;; Time-stamp: <2010-09-20 12:25:39 danlei>
 ;;;;;
 
 
@@ -18,19 +18,19 @@
   "Evaluates macro arguments only once."
   (let ((gensyms (loop for n in names collect (gensym))))
     `(let (,@(loop for g in gensyms collect `(,g (gensym))))
-      `(let (,,@(loop for g in gensyms for n in names collect ``(,,g ,,n)))
-        ,(let (,@(loop for n in names for g in gensyms collect `(,n ,g)))
-           ,@body)))))
+       `(let (,,@(loop for g in gensyms for n in names collect ``(,,g ,,n)))
+          ,(let (,@(loop for n in names for g in gensyms collect `(,n ,g)))
+             ,@body)))))
 
 (defmacro once-only (variables &rest body)
   "Evaluates macro arguments only once."
   (let ((temps nil))
     (dotimes (i (length variables)) (push (gensym) temps))
     ``(let (,,@(mapcar (lambda (tmp var) ``(,',tmp ,,var))
-		       temps variables))
-	,(let ,(mapcar (lambda (var tmp) `(,var ',tmp))
-		       variables temps)
-	      .,body))))
+                 temps variables))
+        ,(let ,(mapcar (lambda (var tmp) `(,var ',tmp))
+                variables temps)
+           .,body))))
 
 (defmacro ignore-warnings ((&optional (condition 'warning)) &body body)
   "Tacitly ignores warnings of type CONDITION within BODY."
@@ -52,18 +52,18 @@ the latter is signaled during the execution of BODY."
   ;; P. Bourguignon
   (format t "~a~%" pathname)
   (format t "~&~{~{~@(~9A~) : ~S~&~}~}"
-	  (mapcar (lambda (name field) (list name (funcall field pathname)))
-		  '(host device directory name type version)
-		  '(pathname-host pathname-device pathname-directory
-		    pathname-name pathname-type pathname-version))))
+          (mapcar (lambda (name field) (list name (funcall field pathname)))
+                  '(host device directory name type version)
+                  '(pathname-host pathname-device pathname-directory
+                    pathname-name pathname-type pathname-version))))
 
 (defun compare-pathnames (p1 p2)
   "Compares the pathnames P1 and P2, then gives a printed overview"
   ;; P. Bourguignon
   (flet ((compare (name field)
-	   (unless (equal (funcall field p1) (funcall field p2))
-	     (format t "~&~A DIFFERENT: ~A /= ~A~%"
-		     name (funcall field p1) (funcall field p2)))))
+           (unless (equal (funcall field p1) (funcall field p2))
+             (format t "~&~A DIFFERENT: ~A /= ~A~%"
+                     name (funcall field p1) (funcall field p2)))))
     (compare 'host      (function pathname-host))
     (compare 'device    (function pathname-device))
     (compare 'directory (function pathname-directory))
