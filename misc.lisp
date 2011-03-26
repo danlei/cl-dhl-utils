@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; misc.lisp
 ;;;;;
-;;;;; Time-stamp: <2010-09-20 12:25:39 danlei>
+;;;;; Time-stamp: <2011-03-26 21:35:18 dhl>
 ;;;;;
 
 
@@ -77,5 +77,5 @@ if given, assigns VALUE to it, and attaches DOCSTRING."
   `(progn
      (define-symbol-macro ,var (get ',var 'lexical-value))
      (setf ,var ,value)
-     (setf (get ',var 'lexical-documentation) ',docstring)
+     (setf (documentation ',var 'variable) ',docstring)
      ',var))
