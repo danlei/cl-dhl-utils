@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; misc-tests.lisp
 ;;;;;
-;;;;; Time-stamp: <2010-09-20 12:32:08 danlei>
+;;;;; Time-stamp: <2011-07-14 22:01:44 dhl>
 ;;;;;
 
 
@@ -130,8 +130,25 @@
   (assert-prints "The." (print-list-as-sentence '(the)))
   (assert-prints "The quick brown fox." (print-list-as-sentence
                                          '(the quick brown fox)))
-  (assert-error 'error (print-list-as-sentence))
-  (assert-error 'error (print-list-as-sentence t)))
+  (assert-error 'error (print-list-as-sentence)))
+
+(define-test substitute-subsequence
+  (assert-equal '() (substitute-subsequence '() '() '()))
+  (assert-equalp #() (substitute-subsequence #() #() #()))
+  (assert-equal "" (substitute-subsequence "" "" ""))
+  (assert-equal '(a b c x y f g)
+                (substitute-subsequence '(x y) '(d e) '(a b c d e f g)))
+  (assert-equalp #(a b c x y f g)
+                 (substitute-subsequence #(x y) #(d e) #(a b c d e f g)))
+  (assert-equal "abcxyfg" (substitute-subsequence "xy" "de" "abcdefg"))
+  (assert-equal '(y o u a n d i)
+                (substitute-subsequence '(i) '(m e) '(y o u a n d m e)))
+  (assert-equalp #(y o u a n d i)
+                 (substitute-subsequence #(i) #(m e) #(y o u a n d m e)))
+  (assert-equal "you and I"
+                (substitute-subsequence "I" "me" "you and me"))
+  (assert-equal "you and me"
+                (substitute-subsequence "me" "I" "you and I")))
 
 (define-test ignore-warnings
   (assert-true (ignore-warnings () t))

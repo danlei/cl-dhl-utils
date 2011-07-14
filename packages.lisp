@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; packages.lisp
 ;;;;;
-;;;;; Time-stamp: <2010-09-20 12:14:11 danlei>
+;;;;; Time-stamp: <2011-07-14 21:14:00 dhl>
 ;;;;;
 
 
@@ -25,6 +25,7 @@
            #:permute
            #:permutations
            #:print-list-as-sentence
+           #:substitute-subsequence
            #:ignore-warnings
            #:straight-ahead
            #:deflex

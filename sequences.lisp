@@ -1,7 +1,7 @@
 ;;;;;
 ;;;;; sequences.lisp
 ;;;;;
-;;;;; Time-stamp: <2010-09-20 12:26:55 danlei>
+;;;;; Time-stamp: <2011-07-14 21:13:01 dhl>
 ;;;;;
 
 
@@ -82,11 +82,24 @@ according to the keyword-arguments, which mirror FIND."
   "Returns all permutations of LIST."
   (loop for element in list
         when (null (cdr list)) do (return (list list))
-          append (loop for permutation in
-                                       (permutations (remove element list :count 1))
+          append (loop for permutation in (permutations
+                                            (remove element list :count 1))
                        collect (cons element permutation))))
 
 (defun print-list-as-sentence (list &key (stream t))
   "Prints LIST as an english sentence, with the first
 word capitalized, and a dot at the end."
   (format stream "~@[~@(~{~a~^ ~}~).~]" list))
+
+(defun substitute-subsequence (new old sequence &key (test #'eql))
+  "Substitute subsequence NEW for OLD in SEQUENCE."
+  (let ((position (search old sequence :test test)))
+    (if position
+        (concatenate (etypecase sequence
+                       (string 'string)
+                       (vector 'vector)
+                       (list 'list))
+                     (subseq sequence 0 position)
+                     new
+                     (subseq sequence (+ position (length old)) (length sequence)))
+        sequence)))
